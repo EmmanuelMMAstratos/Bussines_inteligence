@@ -25,28 +25,6 @@
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
-
-
-	<!-- ................................................................ -->
-	<!-- ................................................................ -->
-	<!-- ................................................................ -->
-	<!-- ................................................................ -->
-	<!-- ................................................................ -->
-	<!-- ................................................................ -->
-		<script type="text/javascript">
-
-		function tiempoReal()
-		{
-			var tabla = $.ajax({
-				url:'backend/usuario.php',
-				dataType:'text',
-				async:false
-			}).responseText;
-
-			document.getElementById("e").innerHTML = tabla;
-		}
-		setInterval(tiempoReal, numero, 1000);
-		</script>
 		<!-- ................................................................ -->
 		<!-- ................................................................ -->
 		<!-- ................................................................ -->
@@ -54,103 +32,40 @@
 		<!-- ................................................................ -->
 		<!-- ................................................................ -->
 
-		<script type="text/javascript">
-
-		function numero()
-		{
-			$.ajax({
-				url : 'backend/usuario.php',
-				type : 'GET',
-				datatype: 'text'
-				data:{
-					numero:$('#numero').val()
-				}
-			}).done(
-				funcion(data){
-					document.getElementById("nums").innerHTML = data;
-
-				}
-			)
-
-
-		}
-
-
-		setInterval(numero, 1000);
-		</script>
-
-
-
-		<!-- ................................................................ -->
-		<!-- ................................................................ -->
-		<!-- ................................................................ -->
-		<!-- ................................................................ -->
-		<!-- ................................................................ -->
-		<!-- ................................................................ -->
-
-
-		<script type="text/javascript">
-
-		function time()
-		{
-			var tabla = $.ajax({
-				url:'backend/usuario.php',
-				dataType:'json',
-				async:false
-			}).responseText;
-
-			document.getElementById("pruaba").innerHTML = tabla;
-		}
-		setInterval(time, 1000);
-		</script>
-
-
-
-
-
-		<!-- ................................................................ -->
-		<!-- ................................................................ -->
-		<!-- ................................................................ -->
-		<!-- ................................................................ -->
-		<!-- ................................................................ -->
-		<!-- ................................................................ -->
-
+		<!-- USUARIO TABLE-->
 		<script type="text/javascript">
 
 		function tabladiseño()
 		{
 			var tabla = $.ajax({
-				url:'backend/usuario.php',
+				url:'backend/salarios_usuario.php',
 				dataType:'text',
 				async:false
 			}).responseText;
 
 
 
-			document.getElementById("desi").innerHTML = tabla;
 			llen(tabla);
 
 
 		}
 
 		function llen(tabla){
+			const datos = tabla.split(" ");
 			var data, options;
 
 			// headline charts
 			data = {
-				labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+				labels: ['171,000 - 200,000', '101,000 - 170,000',' 61,000- 100,000',' 26,000 - 60,000','10,000-25,000' ],
 				series: [
-					[tabla, 0, 24, 40, 25, 24, 35],
-					[14, 25, 18, 34, 29, 38, 44],
+					[datos[0], datos[1], datos[2], datos[3], datos[4]],
 				]
 			};
 
+			// line chart
 			options = {
-				height: 300,
-				showArea: true,
-				showLine: false,
-				showPoint: false,
-				fullWidth: true,
+				height: "300px",
+				showPoint: true,
 				axisX: {
 					showGrid: false
 				},
@@ -158,6 +73,8 @@
 			};
 
 			new Chartist.Line('#headline-chart', data, options);
+
+			//new Chartist.Line('#headline-chart', data, options);
 		}
 		setInterval(tabladiseño, 500);
 
@@ -168,6 +85,202 @@
 		<!-- ................................................................ -->
 		<!-- ................................................................ -->
 		<!-- ................................................................ -->
+
+
+		<!-- REGION QUERIE -->
+		<script type="text/javascript">
+
+		function region()
+		{
+			var tabla = $.ajax({
+				url:'backend/region.php',
+				dataType:'text',
+				async:false
+			}).responseText;
+
+			const datos = tabla.split(" ");
+			document.getElementById("norte").innerHTML = datos[0];
+			document.getElementById("pacifico").innerHTML = datos[1];
+			document.getElementById("medio").innerHTML = datos[2];
+			document.getElementById("sur").innerHTML = datos[3];
+		}
+		setInterval(region, 1000);
+		</script>
+
+
+
+		<!-- ................................................................ -->
+		<!-- ................................................................ -->
+		<!-- ................................................................ -->
+		<!-- ................................................................ -->
+		<!-- ................................................................ -->
+		<!-- ................................................................ -->
+
+
+		<!-- masculino QUERIE -->
+		<script type="text/javascript">
+
+		function region()
+		{
+			var tabla = $.ajax({
+				url:'backend/masculino_usuario.php',
+				dataType:'text',
+				async:false
+			}).responseText;
+			document.getElementById("masculino").innerHTML = tabla;
+		}
+		setInterval(region, 1000);
+		</script>
+
+
+		<!-- ................................................................ -->
+		<!-- ................................................................ -->
+		<!-- ................................................................ -->
+		<!-- ................................................................ -->
+		<!-- ................................................................ -->
+		<!-- ................................................................ -->
+
+
+		<!-- femenino QUERIE -->
+		<script type="text/javascript">
+
+		function region()
+		{
+			var tabla = $.ajax({
+				url:'backend/femenino_usuario.php',
+				dataType:'text',
+				async:false
+			}).responseText;
+			document.getElementById("femenino").innerHTML = tabla;
+		}
+		setInterval(region, 1000);
+		</script>
+
+
+		<!-- ................................................................ -->
+		<!-- ................................................................ -->
+		<!-- ................................................................ -->
+		<!-- ................................................................ -->
+		<!-- ................................................................ -->
+		<!-- ................................................................ -->
+
+		<!-- DISPOSITIVOS TABLE-->
+		<script type="text/javascript">
+
+		function dispositivos()
+		{
+			var tabla = $.ajax({
+				url:'backend/dispositivos_contar.php',
+				dataType:'text',
+				async:false
+			}).responseText;
+
+			llenr(tabla);
+
+
+		}
+
+		function llenr(tabla){
+			var data, options;
+
+			const datos = tabla.split(" ");
+
+			// headline charts
+			data = {
+				labels: ['Relog inteligente', 'App Meteorológica','Sitio Web/App Independiente','Canal del clima'],
+				series: [
+					[datos[0], datos[1], datos[2], datos[3]],
+				]
+			};
+
+			// bar chart
+			options = {
+				height: "300px",
+				axisX: {
+					showGrid: false
+				},
+			};
+
+			new Chartist.Bar('#visits-trends-chart', data, options);
+		}
+		setInterval(dispositivos, 500);
+
+		</script>
+
+
+		<!-- ................................................................ -->
+		<!-- ................................................................ -->
+		<!-- ................................................................ -->
+		<!-- ................................................................ -->
+		<!-- ................................................................ -->
+		<!-- ................................................................ -->
+
+		<!-- ................................................................ -->
+		<!-- ................................................................ -->
+		<!-- ................................................................ -->
+		<!-- ................................................................ -->
+		<!-- ................................................................ -->
+		<!-- ................................................................ -->
+
+		<!-- DISPOSITIVOS TABLE-->
+		<script type="text/javascript">
+
+		function dispositivos()
+		{
+			var tabla = $.ajax({
+				url:'backend/edades_usuario.php',
+				dataType:'text',
+				async:false
+			}).responseText;
+
+			edades(tabla);
+
+
+		}
+
+		function edades(tabla){
+			var data, options;
+
+			const datos = tabla.split(" ");
+
+			// headline charts
+			data = {
+				labels: ['18-25', '26-35','36-45','46-60'],
+				series: [
+					[datos[0], datos[1], datos[2], datos[3]],
+				]
+			};
+
+			// area chart
+			options = {
+				height: "270px",
+				showArea: true,
+				showLine: false,
+				showPoint: false,
+				axisX: {
+					showGrid: false
+				},
+				lineSmooth: false,
+			};
+
+			new Chartist.Line('#edades', data, options);
+		}
+		setInterval(dispositivos, 500);
+
+		</script>
+
+
+		<!-- ................................................................ -->
+		<!-- ................................................................ -->
+		<!-- ................................................................ -->
+		<!-- ................................................................ -->
+		<!-- ................................................................ -->
+		<!-- ................................................................ -->
+
+
+
+
+
 </head>
 
 <body>
@@ -280,8 +393,13 @@
 									<div class="metric">
 										<span class="icon"><i class="fa fa-download"></i></span>
 										<p>
-											<span class="number">1,252</span>
-											<span class="title">Downloads</span>
+
+
+
+												<span class="number" id="norte"> </span >
+
+
+											<span class="title">No. usuarios de Region Norte</span>
 										</p>
 									</div>
 								</div>
@@ -289,8 +407,8 @@
 									<div class="metric">
 										<span class="icon"><i class="fa fa-shopping-bag"></i></span>
 										<p>
-											<span class="number">203</span>
-											<span class="title">Sales</span>
+											<span class="number" id="pacifico"></span>
+											<span class="title">No. usuarios de Region Pacífico</span>
 										</p>
 									</div>
 								</div>
@@ -298,22 +416,30 @@
 									<div class="metric">
 										<span class="icon"><i class="fa fa-eye"></i></span>
 										<p>
-											<span class="number">274,678</span>
-											<span class="title">Visits</span>
+											<span class="number" id="medio"></span>
+											<span class="title">No. usuarios de Region Medio</span>
 										</p>
 									</div>
 								</div>
+
 								<div class="col-md-3">
 									<div class="metric">
 										<span class="icon"><i class="fa fa-bar-chart"></i></span>
 										<p>
-											<span class="number">35%</span>
-											<span class="title">Conversions</span>
+											<span class="number" id="sur"></span>
+											<span class="title">No. usuarios de Region Sur</span>
 										</p>
 									</div>
 								</div>
+
 							</div>
 							<div class="row">
+								<div class="panel-heading">
+									<h3 class="panel-title">Salarios</h3>
+									<p class="panel-subtitle">
+
+									</p>
+								</div>
 								<div class="col-md-9">
 									<div id="headline-chart" class="ct-chart"></div>
 								</div>
@@ -359,77 +485,8 @@
 					</div>
 					<!-- END OVERVIEW -->
 					<div class="row">
-						<div class="col-md-6">
-							<!-- RECENT PURCHASES -->
-							<div class="panel">
-								<div class="panel-heading">
-									<h3 class="panel-title">Recent Purchases</h3>
-									<div class="right">
-										<button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
-										<button type="button" class="btn-remove"><i class="lnr lnr-cross"></i></button>
-									</div>
-								</div>
-								<div class="panel-body no-padding">
-									<table class="table table-striped">
-										<thead>
-											<tr>
-												<th>Order No.</th>
-												<th>Name</th>
-												<th>Amount</th>
-												<th>Date &amp; Time</th>
-												<th>Status</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr>
-												<td><a href="#">763648</a></td>
-												<td>Steve</td>
-												<td>$122</td>
-												<td>Oct 21, 2016</td>
-												<td><span class="label label-success">COMPLETED</span></td>
-											</tr>
-											<tr>
-												<td><a href="#">763649</a></td>
-												<td>Amber</td>
-												<td>$62</td>
-												<td>Oct 21, 2016</td>
-												<td><span class="label label-warning">PENDING</span></td>
-											</tr>
-											<tr>
-												<td><a href="#">763650</a></td>
-												<td>Michael</td>
-												<td>$34</td>
-												<td>Oct 18, 2016</td>
-												<td><span class="label label-danger">FAILED</span></td>
-											</tr>
-											<tr>
-												<td><a href="#">763651</a></td>
-												<td>Roger</td>
-												<td>$186</td>
-												<td>Oct 17, 2016</td>
-												<td><span class="label label-success">SUCCESS</span></td>
-											</tr>
-											<tr>
-												<td><a href="#">763652</a></td>
-												<td>Smith</td>
-												<td>$362</td>
-												<td>Oct 16, 2016</td>
-												<td><span class="label label-success">SUCCESS</span></td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-								<div class="panel-footer">
-									<div class="row">
-										<div class="col-md-6"><span class="panel-note"><i class="fa fa-clock-o"></i> Last 24 hours</span></div>
-										<div class="col-md-6 text-right"><a href="#" class="btn btn-primary">View All Purchases</a></div>
-									</div>
-								</div>
-							</div>
-							<!-- END RECENT PURCHASES -->
-						</div>
 
-						<div class="col-md-6">
+						<div class="col-md-12">
 						  <!-- MULTI CHARTS -->
 						  <div class="panel">
 						    <div class="panel-heading">
@@ -545,11 +602,11 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-md-4">
+						<div class="col-md-6">
 							<!-- TASKS -->
 							<div class="panel">
 								<div class="panel-heading">
-									<h3 class="panel-title">My Tasks</h3>
+									<h3 class="panel-title">Usuarios</h3>
 									<div class="right">
 										<button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
 										<button type="button" class="btn-remove"><i class="lnr lnr-cross"></i></button>
@@ -557,47 +614,15 @@
 								</div>
 								<div class="panel-body">
 									<ul class="list-unstyled task-list">
-										<li>
+
+										<li id="femenino">
 
 
-											<p>Updating Users Settings <span class="label-percent">23%</span></p>
-											<div class="progress progress-xs">
-												<div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="23" aria-valuemin="0" aria-valuemax="100" style="width:23%">
-													<span class="sr-only">23% Complete</span>
-												</div>
-											</div>
 										</li>
-										<li>
-											<p>Load &amp; Stress Test <span class="label-percent">80%</span></p>
-											<div class="progress progress-xs">
-												<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
-													<span class="sr-only">80% Complete</span>
-												</div>
-											</div>
-										</li>
-										<li>
-											<p>Data Duplication Check <span class="label-percent">100%</span></p>
-											<div class="progress progress-xs">
-												<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
-													<span class="sr-only">Success</span>
-												</div>
-											</div>
-										</li>
-										<li>
-											<p>Server Check <span class="label-percent">45%</span></p>
-											<div class="progress progress-xs">
-												<div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 45%">
-													<span class="sr-only">45% Complete</span>
-												</div>
-											</div>
-										</li>
-										<li>
-											<p>Mobile App Development <span class="label-percent">10%</span></p>
-											<div class="progress progress-xs">
-												<div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="width: 10%">
-													<span class="sr-only">10% Complete</span>
-												</div>
-											</div>
+
+										<li id="masculino">
+
+
 										</li>
 									</ul>
 								</div>
@@ -606,47 +631,19 @@
 						</div>
 
 
-						<div class="col-md-4">
-							<!-- VISIT CHART -->
+						<div class="col-md-6">
 							<div class="panel">
 								<div class="panel-heading">
-									<h3 class="panel-title">Website Visits</h3>
+									<h3 class="panel-title">Edades</h3>
 									<div class="right">
 										<button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
 										<button type="button" class="btn-remove"><i class="lnr lnr-cross"></i></button>
 									</div>
 								</div>
 								<div class="panel-body">
-									<div id="visits-chart" class="ct-chart"></div>
+									<div id="edades" class="ct-chart"></div>
 								</div>
 							</div>
-							<!-- END VISIT CHART -->
-						</div>
-						<div class="col-md-4">
-							<!-- REALTIME CHART -->
-							<div class="panel">
-								<div class="panel-heading">
-									<h3 class="panel-title">System Load</h3>
-									<div class="right">
-										<button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
-										<button type="button" class="btn-remove"><i class="lnr lnr-cross"></i></button>
-									</div>
-								</div>
-								<div class="panel-body">
-									<div id="system-load" class="easy-pie-chart" data-percent="70">
-										<span class="percent">70</span>
-									</div>
-									<h4>CPU Load</h4>
-									<ul class="list-unstyled list-justify">
-										<li>High: <span>95%</span></li>
-										<li>Average: <span>87%</span></li>
-										<li>Low: <span>20%</span></li>
-										<li>Threads: <span>996</span></li>
-										<li>Processes: <span>259</span></li>
-									</ul>
-								</div>
-							</div>
-							<!-- END REALTIME CHART -->
 						</div>
 					</div>
 				</div>
